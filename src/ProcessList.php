@@ -2,11 +2,18 @@
 
 namespace gipfl\Process;
 
+use Evenement\EventEmitterInterface;
+use Evenement\EventEmitterTrait;
 use React\ChildProcess\Process as ChildProcess;
 use SplObjectStorage;
 
-class ProcessList extends SplObjectStorage
+class ProcessList extends SplObjectStorage implements EventEmitterInterface
 {
+    const ON_ATTACHED = 'attached';
+    const ON_DETACHED = 'detached';
+
+    use EventEmitterTrait;
+
     public function attach($object, $info = null)
     {
         if (! $object instanceof ChildProcess || $info !== null) {
@@ -19,5 +26,12 @@ class ProcessList extends SplObjectStorage
         });
 
         parent::attach($object, $info);
+        $this->emit(self::ON_ATTACHED, [$object]);
+    }
+
+    public function detach($object)
+    {
+        parent::detach($object);
+        $this->emit(self::ON_DETACHED, [$object]);
     }
 }
