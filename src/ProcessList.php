@@ -4,6 +4,7 @@ namespace gipfl\Process;
 
 use Evenement\EventEmitterInterface;
 use Evenement\EventEmitterTrait;
+use InvalidArgumentException;
 use React\ChildProcess\Process as ChildProcess;
 use SplObjectStorage;
 
@@ -17,8 +18,9 @@ class ProcessList extends SplObjectStorage implements EventEmitterInterface
     public function attach($object, $info = null)
     {
         if (! $object instanceof ChildProcess || $info !== null) {
-            throw new \InvalidArgumentException(sprintf(
-                'Can attach only %s instances', ChildProcess::class
+            throw new InvalidArgumentException(sprintf(
+                'Can attach only %s instances',
+                ChildProcess::class
             ));
         }
         $object->on('exit', function () use ($object) {
