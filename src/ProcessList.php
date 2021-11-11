@@ -2,6 +2,9 @@
 
 namespace gipfl\Process;
 
+/**
+ * @method ChildProcess current
+ */
 use Evenement\EventEmitterInterface;
 use Evenement\EventEmitterTrait;
 use InvalidArgumentException;
