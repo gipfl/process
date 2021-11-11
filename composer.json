@@ -18,6 +18,8 @@
         "php": ">=5.6.0",
         "ext-json": "*",
         "react/child-process": ">=0.6",
-        "react/promise": "^2"
+        "react/promise": "^2",
+        "gipfl/json": ">=0.1",
+        "gipfl/linux-health": ">=0.2"
     }
 }
