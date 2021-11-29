@@ -18,6 +18,7 @@ class ProcessList extends SplObjectStorage implements EventEmitterInterface
 
     use EventEmitterTrait;
 
+    #[\ReturnTypeWillChange]
     public function attach($object, $info = null)
     {
         if (! $object instanceof ChildProcess || $info !== null) {
@@ -34,6 +35,7 @@ class ProcessList extends SplObjectStorage implements EventEmitterInterface
         $this->emit(self::ON_ATTACHED, [$object]);
     }
 
+    #[\ReturnTypeWillChange]
     public function detach($object)
     {
         parent::detach($object);
