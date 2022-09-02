@@ -42,7 +42,7 @@ class ProcessKiller
                 $process->terminate(SIGKILL);
             }
 
-            // Let's add a little bit of delay after KILLing
+            // Let's add a bit of a delay after KILLing
             $loop->addTimer(0.1, function () use ($deferred) {
                 $deferred->resolve();
             });
