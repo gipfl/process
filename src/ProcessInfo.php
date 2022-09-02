@@ -44,10 +44,42 @@ class ProcessInfo implements JsonSerialization
         return $self;
     }
 
+    /**
+     * @return int|null
+     */
+    public function getPid()
+    {
+        return $this->pid;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCommand()
+    {
+        return $this->command;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isRunning()
+    {
+        return $this->running;
+    }
+
+    /**
+     * @return object|null
+     */
+    public function getMemory()
+    {
+        return $this->memory;
+    }
+
     #[\ReturnTypeWillChange]
     public function jsonSerialize()
     {
-        return [
+        return (object) [
             'pid'     => $this->pid,
             'command' => $this->command,
             'running' => $this->running,
