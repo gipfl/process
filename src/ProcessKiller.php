@@ -13,7 +13,7 @@ class ProcessKiller
      * @param ChildProcess $process
      * @param LoopInterface $loop
      * @param int $timeout
-     * @return \React\Promise\ExtendedPromiseInterface
+     * @return \React\Promise\PromiseInterface
      */
     public static function terminateProcess(ChildProcess $process, LoopInterface $loop, $timeout = 0)
     {
@@ -26,12 +26,12 @@ class ProcessKiller
      * @param ProcessList $processes
      * @param LoopInterface $loop
      * @param int $timeout
-     * @return \React\Promise\ExtendedPromiseInterface
+     * @return \React\Promise\PromiseInterface
      */
     public static function terminateProcesses(ProcessList $processes, LoopInterface $loop, $timeout = 5)
     {
         if ($processes->count() === 0) {
-            return resolve();
+            return resolve(null);
         }
         $deferred = new Deferred();
         $killTimer = $loop->addTimer($timeout, function () use ($deferred, $processes, $loop) {
@@ -44,7 +44,7 @@ class ProcessKiller
 
             // Let's add a bit of a delay after KILLing
             $loop->addTimer(0.1, function () use ($deferred) {
-                $deferred->resolve();
+                $deferred->resolve(null);
             });
         });
 
@@ -68,7 +68,7 @@ class ProcessKiller
             if ($processes->count() === 0) {
                 $loop->cancelTimer($timer);
                 $loop->cancelTimer($killTimer);
-                $deferred->resolve();
+                $deferred->resolve(null);
             }
         });
         /** @var ChildProcess $process */
